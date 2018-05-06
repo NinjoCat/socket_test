@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Пример веб-страницы</title>
+</head>
+<body>
+<script>
+    //First create a SockJS tunnel.
+    //Use whatever port and address your WebTCP server is on.
+    var socket = new WebSocket("ws://0.0.0.0:10000");
+
+    //Now you can create sockets like this
+    socket.onopen = function() {
+        alert("Соединение установлено.");
+        var clientId = 10;
+        var taskId = 1;
+        socket.send("clientId=" + clientId + '&taskId=' + taskId);
+
+    };
+
+    socket.onclose = function(event) {
+        if (event.wasClean) {
+            alert('Соединение закрыто чисто');
+        } else {
+            alert('Обрыв соединения'); // например, "убит" процесс сервера
+        }
+        alert('Код: ' + event.code + ' причина: ' + event.reason);
+    };
+
+    socket.onmessage = function(event) {
+        alert("Получены данные " + event.data);
+    };
+
+    socket.onerror = function(error) {
+        alert("Ошибка " + error.message);
+    };
+
+
+
+
+</script>
+<pre>
+    client 1
+    var clientId = 10;
+    var taskId = 1;
+</pre>
+</body>
+</html>

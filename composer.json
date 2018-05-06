@@ -1,0 +1,10 @@
+{
+    "name": "root/test",
+    "description": "desc",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "server\\": "server/"
+        }
+    }
+}
