@@ -55,7 +55,7 @@ class Server
 
     /**
      * @param resource
-     * @return array|bool
+     * @return void
      */
     private function handshake($connect) {
         $info = [];
@@ -106,7 +106,7 @@ class Server
         if (isset($params['clientId']) || isset($params['taskId'])) {
             $resourceId = intval($connect);
             $this->resources[$resourceId] = ['taskId' => $params['taskId'],  'clientId' => $params['clientId'], 'connect' => $connect];
-            return [];
+            return;
         }
 
         if (isset($params['get-all-users']) || array_key_exists('get-all-users', $params)) {
@@ -115,7 +115,7 @@ class Server
             });
 
             fwrite($connect, $this->encodeHelper->hybi10Encode(implode(',', $response)));
-            return $response;
+            return;
         }
 
         if (isset($params['get-all-user-task'])) {
@@ -126,7 +126,7 @@ class Server
             });
 
             fwrite($connect, $this->encodeHelper->hybi10Encode(implode(',', $response)));
-            return ;
+            return;
         }
 
         if (isset($params['send-message']) && strtolower($params['send-message']) == 'all' && isset($params['message'])) {
