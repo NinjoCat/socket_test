@@ -103,7 +103,7 @@ class Server
         parse_str($data, $params);
         $response = [];
 
-        if (isset($params['clientId']) || isset($params['taskId'])) {
+        if (isset($params['clientId']) && isset($params['taskId'])) {
             $resourceId = intval($connect);
             $this->resources[$resourceId] = ['taskId' => $params['taskId'],  'clientId' => $params['clientId'], 'connect' => $connect];
             return;
